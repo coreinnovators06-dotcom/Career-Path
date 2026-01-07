@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CareerPath</title>
+
+<style>
+:root {
+  --primary: #7c3aed;
+  --secondary: #6366f1;
+  --text-dark: #0f172a;
+  --text-light: #475569;
+  --bg-gradient: linear-gradient(135deg,#ede9fe,#e0f2fe,#ecfeff);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: var(--text-dark);
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #475569;
+  font-weight: 500;
+}
+
+.nav-links a.active {
+  background: #ede9fe;
+  color: var(--primary);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-outline,
+.btn-primary {
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-outline {
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* HERO */
+.hero {
+  min-height: calc(100vh - 80px);
+  background: var(--bg-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero-content {
+  max-width: 850px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  color: var(--text-light);
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.6rem;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-lg.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-lg.secondary {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+/* CONTENT */
+section.content {
+  padding: 5rem 10%;
+  text-align: center;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.stat-box {
+  padding: 2rem;
+  border-radius: 16px;
+  background: #f8fafc;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.stat-box h3 {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.stat-box p {
+  color: var(--text-light);
+}
+
+.cta {
+  background: var(--bg-gradient);
+  border-radius: 20px;
+  padding: 4rem 2rem;
+}
+
+/* SCROLL ANIMATION */
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-box {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+.stat-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BUTTON HOVER */
+.btn-primary:hover,
+.btn-lg.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124,58,237,0.35);
+}
+
+/* LOGIN MODAL */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 999;
+}
+
+.login-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.login-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  width: 360px;
+  text-align: center;
+  transform: scale(0.9) translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.login-overlay.active .login-card {
+  transform: scale(1) translateY(0);
+}
+
+.login-card input {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.forgot {
+  display: block;
+  margin: 0.8rem 0;
+  font-size: 0.85rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">🧭 CareerPath</div>
+
+  <nav class="nav-links">
+    <a class="active">Home</a>
+    <a>Explore Careers</a>
+    <a>My Roadmap</a>
+    <a>Resources</a>
+  </nav>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-outline login-btn">Sign In</a>
+    <a href="#" class="btn-primary login-btn">Get Started</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content animate">
+    <div class="badge">✨ Your Future Starts Here</div>
+
+    <h1>
+      Navigate Your<br />
+      <span class="gradient-text">Career Journey</span>
+    </h1>
+
+    <p>
+      Discover career paths tailored to your qualifications and build a
+      personalized roadmap to achieve your goals.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn-lg primary login-btn">Explore Careers →</button>
+      <button class="btn-lg secondary login-btn">Build My Roadmap →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="content animate">
+  <h2>Why Students Choose CareerPath</h2>
+
+  <div class="stats">
+    <div class="stat-box"><h3>500+</h3><p>Career Paths</p></div>
+    <div class="stat-box"><h3>10k+</h3><p>Students Guided</p></div>
+    <div class="stat-box"><h3>95%</h3><p>Success Rate</p></div>
+    <div class="stat-box"><h3>50+</h3><p>Industries</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="content animate">
+  <div class="cta">
+    <h2>Start Building Your Career Today</h2>
+    <p>Sign in and get your personalized career roadmap in minutes.</p>
+    <br />
+    <button class="btn-lg primary login-btn">Get Started Free →</button>
+  </div>
+</section>
+
+<!-- LOGIN / SIGNUP MODAL -->
+<div class="login-overlay" id="loginModal">
+  <div class="login-card">
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+      <h2>Welcome Back 👋</h2>
+      <p>Sign in to continue</p>
+
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+
+      <a class="forgot">Forgot password?</a>
+
+      <button class="btn-lg primary" style="width:100%">Sign In</button>
+
+      <!-- ONLY ADDITION -->
+      <div class="switch">
+        Don’t have an account? <span id="showSignup">Sign up</span>
+      </div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div id="signupForm" style="display:none">
+      <h2>Create Account 🚀</h2>
+
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <input type="password" placeholder="Confirm Password">
+
+      <button class="btn-lg primary" style="width:100%">Create Account</button>
+
+      <div class="switch">
+        Already have an account? <span id="showLogin">Sign in</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* Scroll animation */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+},{ threshold:0.15 });
+
+document.querySelectorAll(".animate").forEach(el => observer.observe(el));
+document.querySelectorAll(".stat-box").forEach(el => observer.observe(el));
+
+/* Login modal */
+const modal = document.getElementById("loginModal");
+document.querySelectorAll(".login-btn").forEach(btn => {
+  btn.onclick = () => modal.classList.add("active");
+});
+modal.onclick = e => {
+  if (e.target === modal) modal.classList.remove("active");
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerPath – Registration</title>
+
+<style>
+:root{
+  --primary:#7c3aed;
+  --bg:#f8fafc;
+  --text:#0f172a;
+  --muted:#64748b;
+}
+
+*{box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{
+  background:linear-gradient(135deg,#ede9fe,#e0f2fe,#ecfeff);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
+  width:420px;
+  background:#fff;
+  border-radius:20px;
+  padding:2rem;
+  box-shadow:0 30px 60px rgba(0,0,0,.1);
+}
+
+.progress{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-bottom:1.5rem;
+}
+.progress span{
+  width:20px;
+  height:6px;
+  border-radius:999px;
+  background:#e5e7eb;
+}
+.progress span.active{background:var(--primary)}
+
+h2{text-align:center;margin-bottom:.3rem}
+p{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+
+.step{display:none}
+.step.active{display:block}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem;
+}
+
+.option{
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:1rem;
+  text-align:center;
+  cursor:pointer;
+}
+.option.active{
+  border-color:var(--primary);
+  background:#ede9fe;
+}
+
+input,select{
+  width:100%;
+  padding:.7rem;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  margin-bottom:.7rem;
+}
+
+.link{
+  text-align:right;
+  font-size:.8rem;
+  color:var(--primary);
+  cursor:pointer;
+  margin-bottom:1rem;
+}
+
+.add-btn{
+  width:100%;
+  background:#e0e7ff;
+  color:var(--primary);
+  border:none;
+  padding:.5rem;
+  border-radius:999px;
+  cursor:pointer;
+  margin-bottom:.8rem;
+}
+
+.tags{margin-bottom:1rem}
+
+.tag{
+  display:inline-block;
+  background:#ede9fe;
+  color:var(--primary);
+  padding:.3rem .6rem;
+  border-radius:999px;
+  font-size:.8rem;
+  margin:4px;
+  cursor:pointer;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+  margin-top:1rem;
+}
+
+button{
+  padding:.6rem 1.3rem;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn-back{background:#f1f5f9}
+.btn-next{background:var(--primary);color:#fff}
+
+.center-btn{
+  width:100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- PROGRESS -->
+<div class="progress">
+  <span class="active"></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- STEP 0 : ACCOUNT -->
+<div class="step active">
+  <h2>Create your account</h2>
+  <p>Start your personalized career journey</p>
+
+  <input type="email" placeholder="Email address">
+  <input type="password" placeholder="Password">
+  <input type="password" placeholder="Confirm password">
+
+  <div class="link">Forgot password?</div>
+
+  <div class="actions">
+    <span></span>
+    <button class="btn-next center-btn">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <h2>Which fields interest you?</h2>
+  <p>Select one or more career categories</p>
+
+  <div class="grid">
+    <div class="option">💻 Technology</div>
+    <div class="option">📊 Business</div>
+    <div class="option">🎨 Creative</div>
+    <div class="option">🔬 Science</div>
+    <div class="option">🏥 Healthcare</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-back">Back</button>
+    <button class="btn-next">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <h2>What are your skills?</h2>
+  <p>Add your technical & soft skills</p>
+
+  <input id="skillInput" placeholder="Add a skill (e.g., Python)">
+  <button class="add-btn" onclick="addTag('skill')">Add Skill</button>
+  <div id="skillTags" class="tags"></div>
+
+  <input id="interestInput" placeholder="Add an interest (e.g., AI)">
+  <button class="add-btn" onclick="addTag('interest')">Add Interest</button>
+  <div id="interestTags" class="tags"></div>
+
+  <div class="actions">
+    <button class="btn-back">Back</button>
+    <button class="btn-next">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <h2>Your background</h2>
+  <p>This helps us personalize your path</p>
+
+  <input placeholder="Current role / qualification">
+  <select>
+    <option>Education level</option>
+    <option>Student</option>
+    <option>Diploma</option>
+    <option>Bachelor's</option>
+    <option>Master's</option>
+  </select>
+
+  <input type="number" placeholder="Years of experience">
+
+  <div class="actions">
+    <button class="btn-back">Back</button>
+    <button class="btn-next">Next →</button>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <h2>Career preferences</h2>
+  <p>Tell us what you want next</p>
+
+  <select>
+    <option>Career Goal</option>
+    <option>First Job</option>
+    <option>Career Switch</option>
+    <option>Growth in current role</option>
+    <option>Higher studies</option>
+  </select>
+
+  <select>
+    <option>Time availability per week</option>
+    <option>&lt; 5 hours</option>
+    <option>5–10 hours</option>
+    <option>10–20 hours</option>
+    <option>Full-time learner</option>
+  </select>
+
+  <select>
+    <option>Preferred job type</option>
+    <option>Full-time</option>
+    <option>Internship</option>
+    <option>Freelance</option>
+    <option>Remote</option>
+  </select>
+
+  <div class="actions">
+    <button class="btn-back">Back</button>
+    <button class="btn-next">Finish →</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const steps=document.querySelectorAll('.step');
+const dots=document.querySelectorAll('.progress span');
+let current=0;
+
+function showStep(i){
+  steps.forEach(s=>s.classList.remove('active'));
+  dots.forEach(d=>d.classList.remove('active'));
+  steps[i].classList.add('active');
+  dots[i].classList.add('active');
+}
+
+document.querySelectorAll('.btn-next').forEach(b=>{
+  b.onclick=()=>{if(current<steps.length-1){current++;showStep(current)}}
+});
+document.querySelectorAll('.btn-back').forEach(b=>{
+  b.onclick=()=>{if(current>0){current--;showStep(current)}}
+});
+
+document.querySelectorAll('.option').forEach(o=>{
+  o.onclick=()=>o.classList.toggle('active');
+});
+
+function addTag(type){
+  const input=document.getElementById(type+"Input");
+  const box=document.getElementById(type+"Tags");
+  const val=input.value.trim();
+  if(!val) return;
+
+  const tag=document.createElement("span");
+  tag.className="tag";
+  tag.innerHTML=val+" ✕";
+  tag.onclick=()=>tag.remove();
+
+  box.appendChild(tag);
+  input.value="";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+/* ===== ANIMATIONS ===== */
+.animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger effect for stats */
+.stat-box {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.stat-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button hover micro-animation */
+.btn-primary:hover,
+.btn-lg.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
+}
+
+.btn-outline:hover,
+.btn-lg.secondary:hover {
+  background: #f1f5f9;
+}
